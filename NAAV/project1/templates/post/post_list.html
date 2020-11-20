@@ -1,0 +1,11 @@
+{% extends 'post/base.html' %} {% block content %} {% for post in posts %}
+<h1> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> </h1>
+{%if post.image %}
+<img src="http://localhost:8000/{{post.image.url}}" alt="My Image"> {% endif %}
+<p> {{ post.description }} </p>
+<p>HashTags : {% for category in post.categories.all %} #{{category.name}}, {% endfor %}
+</p>
+<div class="date">
+    <p> Posted on : {{ post.created_at }} </p>
+</div>
+{% endfor %} {% endblock %}

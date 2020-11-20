@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 /> '
+    <meta name="viewport" content="intial-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBzjrmFrz1FwngueZlNFd60EaYGkxg6NBA"></script>
+    <script>
+        var map;
+        var infowindow = new google.maps.InfoWindow();
+
+        var request;
+        var service;
+        var markers = [];
+
+
+        function initialize() {
+            var center = new google.maps.LatLng(8.4997267, 76.8541261);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: center,
+                zoom: 13
+            });
+
+
+            request = {
+                location: center,
+                radius: 40000,
+                types: ['hospital']
+            };
+
+
+            service = new google.maps.places.PlacesService(map);
+
+            service.nearbySearch(request, callback);
+
+            google.maps.event.addListener(map, 'rightclick', function(event) {
+                map.setCenter(event.latLng)
+                clearResults(markers)
+
+                var request = {
+                    location: event.latLng,
+                    radius: 32186,
+                    types: ['cafe', 'coffee']
+                };
+                service.nearbySearch(request, callback);
+            })
+
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+
+
+
+        function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    markers.push(createMarker(results[i]));
+                }
+            }
+        }
+
+        function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+                infowindow.setContent(place.name);
+            })
+            return marker;
+        }
+
+        function clearResults(markers) {
+            for (var m in markers) {
+                markers[m].setMap(null)
+            }
+            markers = [];
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <title>Day Care Locator</title>
+    <h1>Day Care Locator</h1>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #map {
+            height: 60%;
+            width: 60%;
+            margin: 5% 0px 0px 8% !important;
+            padding: 20px;
+            border-radius: 25px;
+            border: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+
+    </div>
+
+</body>
+
+</html>

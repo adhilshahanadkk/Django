@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .main-navi {
+        float: right;
+        list-style: none;
+        margin-right: 100px;
+        margin-top: -60px;
+    }
+    
+    .bg-img {
+        background-image: url("https://img.wallpapersafari.com/desktop/1920/1080/88/76/StC9Kb.jpg");
+        min-height: 600px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+    
+    .main-navi li {
+        display: inline-block;
+    }
+    
+    .main-navi li a {
+        color: rgb(5, 5, 5);
+        text-decoration: none;
+        padding: 5px 20px;
+        font-family: "Roboto", sana-serif;
+        font-size: 17px;
+    }
+    
+    .main-navi li.active a {
+        border: : 1px solid white;
+    }
+    
+    .main-navi li a:hover {
+        border: 1px solid rgb(14, 13, 13);
+    }
+    
+    .row {
+        margin-left: 0px;
+        margin-top: 90px
+    }
+    
+    .font1 {
+        font-family: sans-serif;
+    }
+</style>
+
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <title> NAAV CARE Home</title>
+    <link href="unstyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="bg-img">
+
+        <div class="page-header">
+            <div class="font1">
+                <h1><a href="/">NAAV CARE</a></h1>
+            </div>
+        </div>
+        <header>
+
+            <div class="row">
+                <div class="logo">
+                </div>
+                <ul class="main-navi">
+                    <li>
+                        <a href=""> HOME </a></li>
+                    <li><a href=" {% url 'service' %} "> SERVICE</a></li>
+                    <li><a href=" {% url 'about' %} ">ABOUT </a></li>
+                    <li><a href=" {% url 'contact' %} ">CONTACT</a></li>
+                    <br><br><br><br>
+                    <p>
+                        <h2>“There is nothing as powerful as mother’s love,<br> and nothing as healing as a child’s soul.”</h2>
+                    </p>
+                </ul>
+
+
+            </div>
+
+            <div class="service "></div>
+            <div class=" ">
+                <h2></h2>
+
+            </div>
+            <br>
+            <br>
+    </div>
+
+    </header>
+    <!-- <div class="content container ">
+                <div class="row ">
+                    <div class="col-md-8 ">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+            </div>-->
+    </div>
+</body>
+
+</html>
